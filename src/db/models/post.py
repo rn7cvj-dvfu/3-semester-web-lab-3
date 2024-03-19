@@ -36,9 +36,9 @@ class Post(db.Model):
         return '\n'.join(strings)
 
 
-def add_new_post(postTitle : str , postText : str):
+def add_new_post(postTitle : str , postText : str , authorId : str):
 
-    newPost = Post(authorTelegramId = '#' , postTitle = postTitle , postText = postText)
+    newPost = Post(authorTelegramId = authorId , postTitle = postTitle , postText = postText)
 
     db.session.add(newPost)
 
