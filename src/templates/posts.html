@@ -1,0 +1,70 @@
+{% extends "posts_base.html" %}
+
+{% block content %}
+  
+  {% if posts.__len__() == 0 %}
+
+    <div>
+      There are no posts here yet 🙁
+    </div>
+
+  {% else %}
+
+    {% for post in posts %}
+
+
+
+      <div class="card w-100 mb-2">
+
+        <div class="d-flex flex-wrap align-items-center  justify-content-between border-bottom m-3 pb-3">
+          
+          <div >
+            {{ post.title }} 
+          </div>
+
+          {% if post.isSubscribe %}
+          
+            <form action="/author/unsubscribe?authorId={{post.author}}"  method="post">
+
+              <button type="submit" class="btn btn-outline-secondary me-2">Unsubscribe</button>
+            
+            </form>
+
+          {% else %}
+
+            <form action="/author/subscribe?authorId={{post.author}}"  method="post" >
+
+              <button type="submit" class="btn btn-outline-primary me-2">Subscribe</button>
+
+            </form>
+
+          {% endif %}
+
+        </div>
+
+        <p class="mx-3">
+          {{ post.text }}
+        </p>
+
+      </div>
+
+    {% endfor %}
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between border-top m-3 pt-3 w-100">
+
+      <a  href="{{baseHref}}?page={{ page - 1 }}" class="btn btn-outline-primary {% if not havePreviousPage %} disabled {% endif %}">
+        Previous page
+      </a>
+  
+      <a href="{{baseHref}}?page={{ page + 1 }}" class="btn btn-outline-primary {% if not haveNextPage %} disabled {% endif %}">Next page</a>
+  
+    </div>
+    
+
+  {% endif %}
+
+  
+    
+  
+
+{% endblock %}
